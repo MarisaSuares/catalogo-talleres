@@ -1,14 +1,14 @@
 import { useState } from "react";
 import estilos from "./TarjetaTaller.module.css";
 
-export default function TarjetaTaller({ taller }) {
+export default function TarjetaTaller({ taller, vista }) {
     const { titulo, categoria, cupo, inscriptos, nuevo, descripcion } = taller;
     const [expandido, setExpandido] = useState(false);
-
     const libres = cupo - inscriptos;
     const porcentaje = Math.round((inscriptos / cupo) * 100);
 
-    
+
+
     let claseEstado = estilos.disponible;
     if (libres === 0) {
         claseEstado = estilos.completo;
@@ -16,8 +16,8 @@ export default function TarjetaTaller({ taller }) {
         claseEstado = estilos.pocos;
     }
 
-
-    const claseTarjeta = `${estilos.tarjeta} ${claseEstado} ${expandido ? estilos.expandida : ""}`;
+    const claseVista = vista == "Lista" ? estilos.lista : "";
+    const claseTarjeta = `${estilos.tarjeta} ${claseEstado} ${expandido ? estilos.expandida : ""} ${claseVista}`;
 
     return (
     <article className={claseTarjeta}>
